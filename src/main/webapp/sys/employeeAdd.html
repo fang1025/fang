@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		</meta>
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<title>员工</title>
+		<!-- css -->
+		<link href="../assets/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+		<!-- Ionicons -->
+		<link rel="stylesheet" href="../assets/css/ionicons.min.css">
+		<!-- Theme style -->
+		<link rel="stylesheet" href="../assets/css/AdminLTE.css">
+		<link rel="stylesheet" href="../assets/css/style.css">
+	</head>
+
+	<body>
+
+		<div class="box margin-bottom-none">
+			<input type="hidden" id="" class="m-text" >
+
+			<div class="box-body">
+				<div class="form-group col-sm-4">
+					<label>姓名</label>
+					<input type="text" class="form-control" id="name" maxlen="10" verifyType="noNull" />
+				</div>
+				<div class="form-group col-sm-4">
+					<label>登陆名</label>
+					<input type="text" class="form-control" id="loginName" maxlen="56" verifyType="noNull" />
+				</div>
+				<div class="form-group col-sm-4">
+					<label>邮箱</label>
+					<input type="text" class="form-control" id="email" verifyType="nullormail" />
+				</div>
+				<div class="form-group col-sm-4">
+					<label>手机</label>
+					<input type="text" class="form-control" id="mobile" maxlen="11" verifyType="nullormobile" />
+				</div>
+				<div class="form-group col-sm-4">
+					<label>密码</label>
+					<input type="text" class="form-control" id="password" />
+				</div>
+				<div class="form-group col-sm-4">
+					<label>身份证号</label>
+					<input type="text" class="form-control" id="identityCard" maxlen="18" verifyType="idCard" />
+				</div>
+				<div class="form-group col-sm-4">
+					<label>性别</label>
+					<select type="text" class="form-control" id="sexType" >
+						<option value="">请选择</option>
+					</select>
+
+				</div>
+				<div class="form-group col-sm-4">
+					<label>出生日期</label>
+					<div class="has-feedback">
+						<input type="text" class="form-control" id="birthDate" click="showDate" />
+						<span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+					</div>
+				</div>
+				<div class="form-group col-sm-4">
+					<label>入职日期</label>
+					<div class="has-feedback">
+						<input type="text" class="form-control" id="entryDate" click="showDate" />
+						<span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="box-footer fixed-bottom">
+				<div class=" col-sm-12">
+					<a class="btn btn-default pull-right" click="saveEmployee"> 保存 </a>
+				</div>
+			</div>
+		</div>
+
+		<script src="../assets/js/jquery-1.9.1.min.js"></script>
+		<script src="../assets/lib/bootstrap/js/bootstrap.js"></script>
+		<script src="../assets/lib/layer/layer.js"></script>
+		<script src="../assets/lib/datePicker/WdatePicker.js"></script>
+		<script src="../assets/js/jquery.scrollTo.min.js"></script>
+		<script src="../assets/js/jquery.nicescroll.js"></script>
+		<script src="../assets/js/common.js"></script>
+		<script type="text/javascript" src="js/employeeAdd.js"></script>
+
+	</body>
+</html>

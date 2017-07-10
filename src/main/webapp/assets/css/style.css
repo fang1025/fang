@@ -1,0 +1,290 @@
+@charset "utf-8";
+
+.margin-r-15 {
+  margin-right: 15px;
+}
+
+.pagination span{
+	position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.428571;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #fff;
+}
+
+.pagination{
+	margin: 2px 2px
+}
+
+/**
+ * 	按钮级功能
+ */
+.btn-func a{
+	height: 30px;
+	margin-right: 10px;
+}
+.btn-func a i{
+	margin-right: 3px;
+}
+
+/*
+ * table 点击样式
+ */
+.click-tr {
+	background: #ccc !important;
+}
+
+/**
+ * 	tab叶签
+ */
+
+.fang-tab-title {
+	overflow: hidden;
+	margin: 0px 0px 0 0px;
+	padding-left: 15px;
+	max-height: 30px; 
+
+}
+.fang-tab-title li{
+    border-right: 1px solid #fff;
+	/*margin-right: 8px;*/
+    position: relative;
+    float: left;
+    display: inline;
+    height: 30px;
+    background-color: transparent;
+    margin-left: -3px\9;
+    cursor: pointer;
+    padding: 5px 35px 5px 10px;
+}
+.fang-tab-title li:hover{
+	background: #3c8dbc;
+}
+.fang-tab-title .pt-hover{   
+	background: #3c8dbc;   color: #000;
+} 
+.fang-tab-title .pt-hover:hover{
+	background: #3c8dbc;
+	cursor: default;
+}
+.fang-tab-title li span{ 
+    overflow: hidden;
+    text-align: center;
+    width: 100px;
+    overflow:hidden;
+ }
+.fang-tab-title li a {
+    position: absolute;
+    top: 2px;
+    right: 5px;
+    text-align: left;	
+    color: inherit;
+}
+.fang-tab-title li:nth-of-type(1){margin-left:0px} 
+
+
+/*-------------tk树菜单---------------*/
+.tree-box{float: left;  overflow:hidden; }
+.branch{ clear:both; margin:5px;}
+.leaf{ clear:both; margin-left:20px; overflow:hidden;}
+.branch img{ cursor:pointer; float:left;}
+.tree-lable{cursor:pointer; margin-left:5px;float:left; display: inline;}
+.leaf-node{ margin:5px; clear:both;overflow:hidden;}
+.tree-selected{     
+	background-color: #3c8dbc;
+    color: #f4f4f4;
+    padding: 0px 6px;
+}
+
+
+
+/**
+ * 	menu
+ */
+ .menu {
+  max-height: 200px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: hidden;
+}
+ .menu > li > a {
+  display: block;
+  white-space: nowrap;
+  /* Prevent text from breaking */
+  border-bottom: 1px solid #f4f4f4;
+}
+ .menu > li > a:hover {
+  background: #3c8dbc;
+  text-decoration: none;
+  color: #white;
+}
+ .menu > li > a {
+  color: #444444;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 10px;
+}
+ .menu > li > a > .glyphicon,
+ .menu > li > a > .fa,
+ .menu > li > a > .ion {
+  width: 20px;
+}
+ .menu > li > a {
+  margin: 0;
+  padding: 10px 10px;
+}
+ .menu > li > a > div > img {
+  margin: auto 10px auto auto;
+  width: 40px;
+  height: 40px;
+}
+ .menu > li > a > h4 {
+  padding: 0;
+  margin: 0 0 0 45px;
+  color: #444444;
+  font-size: 15px;
+  position: relative;
+}
+ .menu > li > a > h4 > small {
+  color: #999999;
+  font-size: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+ .menu > li > a > p {
+  margin: 0 0 0 45px;
+  font-size: 12px;
+  color: #888888;
+}
+ .menu > li > a:before,
+ .menu > li > a:after {
+  content: " ";
+  display: table;
+}
+ .menu > li > a:after {
+  clear: both;
+}
+  .menu > li > a {
+  padding: 10px;
+}
+  .menu > li > a > h3 {
+  font-size: 14px;
+  padding: 0;
+  margin: 0 0 10px 0;
+  color: #666666;
+}
+  .menu > li > a > .progress {
+  padding: 0;
+  margin: 0;
+}
+.menu > li > .active {
+	background: #3c8dbc;
+    color: white;
+}
+
+
+/* icon */
+.icon {background:url(../img/icon.png) no-repeat; cursor:pointer;    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    display: inline-block;
+    float: left;}
+.back {background:url(../img/icon.png) no-repeat; cursor:pointer; background-position: -441px -321px;}
+.icon-home {background-position:0px 0px;}
+.icon-message {background-position:-40px 0px;}
+.icon-lock {background-position:-80px 0px;}
+.icon-update {background-position:-120px 0px;}
+.icon-guide {background-position:-160px 0px;}
+
+.icon-market-m {background-position:0px -40px;}
+.icon-purchasing-m {background-position:0px -80px;}
+.icon-financial-m {background-position:0px -120px;}
+.icon-stock-m {background-position:0px -160px;}
+.icon-info-m {background-position:0px -200px;}
+.icon-system-m {background-position:0px -240px;}
+
+.icon-collections {background-position:0px -400px;}
+.icon-payment {background-position:-80px -400px;}
+.icon-transfer {background-position:-160px -400px;}
+.icon-cashcost {background-position:-240px -400px;}
+.icon-generalcost {background-position:-320px -400px;}
+.icon-status {background-position:-400px -400px;}
+.icon-bar {background-position:-440px 0px;}
+
+.icon-bar-arrow {background-position:-460px 0px;}
+.icon-close {background-position:-460px -20px;}
+.icon-add {background-position:-460px -40px;}
+.icon-sales-order {background-position:-460px -60px;}
+.icon-del {background-position:-460px -80px;}
+.icon-modi {background-position:-460px -100px;}
+.icon-confirm {background-position:-460px -120px;}
+.icon-cancel {background-position:-460px -140px;}
+.icon-print {background-position:-460px -160px;}
+/*确认操作*/
+.icon-sure {background-position:-355px -121px;}
+/*同步操作*/
+.icon-sync {background-position:-460px -220px;}
+
+.icon-msg {background-position:-439px -140px;}
+
+.icon-bigadd {background-position:-78px -48px;}
+.icon-clock {background-position:-442px -182px;}
+
+.icon-list {background-position:-2px -321px;}
+.icon-details {background-position:-42px -321px;}
+.icon-email {background-position:-82px -323px;}
+.icon-execute {background-position:-122px -321px;}
+.icon-receipt {background-position:-162px -322px;}
+.icon-storage {background-position:-202px -322px;}
+.icon-payment-o {background-position:-242px -321px;}
+.icon-prevpage {background-position:-282px -321px;}
+.icon-prev {background-position:-322px -321px;}
+.icon-next {background-position:-362px -321px;}
+.icon-nextpage {background-position:-402px -321px;}
+.icon-refresh {background-position:-442px -321px;}
+
+.icon-check {background-position:-440px -39px;}
+.icon-checked {background-position:-440px -60px;}
+.icon-checkhalf {background-position:-419px -60px;}
+.icon-arrow-left {background-position:-440px -100px;}
+.icon-arrow-right {background-position:-440px -80px;}
+
+.icon-add-m {background-position:-460px -180px;}
+.icon-modi-m {background-position:-460px -200px;}
+.icon-reset-m {background-position:-460px -220px;}
+
+.icon-p-inquiry {background-position:0px -480px;}
+.icon-p-order {background-position:-80px -480px;}
+.icon-p-invoice {background-position:-160px -480px;}
+.icon-p-state {background-position:-240px -480px;}
+.icon-p-storage {background-position:-320px -480px;}
+.icon-p-return {background-position:-400px -480px;}
+
+.icon-p-overflow {background-position:-80px -240px;}
+.icon-p-loss {background-position:-160px -240px;}
+.icon-p-i-status {background-position:-240px -240px;}
+.icon-p-service {background-position:-320px -240px;}
+.icon-p-code-val {background-position:-400px -240px;}
+
+.drop-icon{display: inline-block;
+width: 21px;
+height: 18px;
+vertical-align: bottom;
+background-position: -460px -120px;
+}
+
+
+/**固定在底部*/
+.fixed-bottom {
+	position: fixed;
+    bottom: 0px;
+    text-align: center;
+    width: 100%;
+}
+

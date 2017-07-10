@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+	
+	<!-- 用alibaba的druid作为数据库连接池 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
+     <!-- -->
+      <property name="url" value="${jdbc.url}" />
+      <property name="username" value="${jdbc.username}" />
+      <property name="password" value="${jdbc.password}" />
+     
+      <!-- 初始化时建立物理连接的个数 -->
+      <property name="initialSize" value="1"></property>
+      <!-- 最大连接池数量 -->
+      <property name="maxActive" value="20"></property>
+      <!-- 获取连接时最大等待时间，单位毫秒 -->
+      <property name="maxWait" value="60000"></property>
+      
+      <!-- Destroy线程会检测连接的间隔时间，单位毫秒 -->
+      <property name="timeBetweenEvictionRunsMillis" value="60000"></property>
+      <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+      <property name="minEvictableIdleTimeMillis" value="300000"></property>
+	  
+      <property name="validationQuery" value="SELECT 'x'"></property>
+      <property name="testWhileIdle" value="true"></property>
+      <property name="testOnBorrow" value="false"></property>
+      <property name="testOnReturn" value="false"></property>
+
+      <!-- 是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。 -->
+      <property name="poolPreparedStatements" value="false"></property>
+      <property name="maxOpenPreparedStatements" value="20"></property>
+      
+      <!-- 配置扩展插件，常用的插件有：监控统计用的filter:stat 日志用的filter:log4j 防御sql注入的filter:wall -->
+      
+		<property name="filters" value="stat,slf4j"/>  
+    </bean>
+    
+	
+</beans>

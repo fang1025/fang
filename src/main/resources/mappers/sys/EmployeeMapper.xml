@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fang.sys.dao.EmployeeMapper">
+	
+	<!-- 实体类 - 数据库映射 -->
+	<resultMap id="BaseResultMap" type="com.fang.sys.entity.EmployeeEntity" >
+		<id column="id" property="id"  />
+		<result column="name" property="name"/>
+		<result column="loginName" property="loginName"/>
+		<result column="email" property="email"/>
+		<result column="mobile" property="mobile"/>
+		<result column="password" property="password"/>
+		<result column="type" property="type"/>
+		<result column="enable" property="enable"/>
+		<result column="createBy" property="createBy"/>
+		<result column="createById" property="createById"/>
+		<result column="createTime" property="createTime"/>
+		<result column="lastUpdateBy" property="lastUpdateBy"/>
+		<result column="lastUpdateById" property="lastUpdateById"/>
+		<result column="lastUpdateTime" property="lastUpdateTime"/>
+	</resultMap>
+    
+    <select id="findEmployeeByParam" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        	u.id,
+        	name,
+            loginName,
+            email,
+            mobile,
+            password,
+            type,
+            identityCard,
+            sexType,
+            birthDate,
+            entryDate,
+            leaveDate,
+            workStatus
+        from  sys_employee_tbl e, sys_user_tbl u where e.id = u.id and enable <![CDATA[<>]]> '1'
+        <if test="id != null">
+            and id =#{id}
+        </if>
+        order by createTime desc
+    </select>
+
+    <insert id="insertEmployee" parameterType="com.fang.sys.entity.EmployeeEntity" >
+        insert into sys_employee_tbl(
+        id, identityCard, sexType, birthDate, entryDate, leaveDate, workStatus)
+        values(
+        #{id}, #{identityCard}, #{sexType}, #{birthDate}, #{entryDate}, #{leaveDate}, #{workStatus}
+        )
+    </insert>
+
+    <update id="updateEmployee" parameterType="com.fang.sys.entity.EmployeeEntity" >
+        update sys_employee_tbl set
+        identityCard = #{identityCard},
+        sexType = #{sexType},
+        birthDate = #{birthDate},
+        entryDate = #{entryDate},
+        leaveDate = #{leaveDate},
+        workStatus = #{workStatus}
+        where id = #{id}
+    </update>
+    
+
+    <delete id="deleteEmployeeById">
+        delete from sys_employee_tbl 
+        where id = #{id}
+    </delete>
+
+
+
+</mapper>

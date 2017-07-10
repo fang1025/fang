@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<title>部门</title>
+		<!-- css -->
+		<link href="../assets/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+  		<!-- Theme style -->
+		<link rel="stylesheet" href="../assets/css/AdminLTE.css">
+		<link rel="stylesheet" href="../assets/css/style.css">
+	</head>
+
+	<body>
+	
+		<div class="box margin-bottom-none">
+			<input type="hidden" id="id" class="m-text" >
+			
+			<div class="box-body">
+				<div class="form-group col-sm-6">
+					<label>部门编号</label>
+					<input type="text" class="form-control" id="deptCode" maxlen="20"verifyType="noNull" /> 
+				</div>
+				<div class="form-group col-sm-6">
+					<label>部门名称</label>
+					<input type="text" class="form-control" id="deptName" maxlen="48"verifyType="noNull" /> 
+				</div>
+				<div class="form-group col-sm-6">
+					<label>部门类型</label>
+					<select type="text" class="form-control" id="deptType" maxlen="2" >
+						<option value="">请选择</option>
+					</select>
+					
+				</div>
+				<div class="form-group col-sm-6">
+					<label>电话</label>
+					<input type="text" class="form-control" id="officeTel" maxlen="11" /> 
+				</div>
+				<div class="form-group col-sm-6">
+					<label>备注</label>
+					<input type="text" class="form-control" id="notes" maxlen="128" /> 
+				</div>
+			</div>
+
+			<div class="box-footer fixed-bottom">
+				<div class=" col-sm-12">
+					<a class="btn btn-default pull-right" click="saveDept"> 保存 </a>
+				</div>
+			</div>
+		</div>
+	
+		<script src="../assets/js/jquery-1.9.1.min.js"></script>
+		<script src="../assets/lib/bootstrap/js/bootstrap.js"></script>
+		<script src="../assets/lib/layer/layer.js"></script>
+		<script src="../assets/js/common.js"></script>
+		<script src="js/deptAdd.js"></script>
+
+</body>
+</html>

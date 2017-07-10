@@ -1,0 +1,55 @@
+@charset "utf-8";
+div.head {
+  background: url("../images/blue/top-line.gif") center center repeat-x transparent;
+}
+div.head div.item ul li a:hover,
+div.head div.item ul li a:focus {
+  color: #8dd2fd;
+}
+.bg-icon-sysName{
+ background-position:-14px -15px;
+}
+.bg-icon-middle{
+ background-position:-15px -107px;
+}
+.bg-icon-right{
+ background-position:-500px -15px;
+}
+a.home:hover,
+a.home:focus {
+  background: url("../images/blue/home1.png") 0 center no-repeat transparent;
+}
+a.cancel:hover,
+a.cancel:focus {
+  background: url("../images/blue/cancel1.png") 0 center no-repeat transparent;
+}
+a.help:hover,
+a.help:focus {
+  background: url("../images/blue/help1.png") 0 center no-repeat transparent;
+}
+div.menu {
+  background-color: #025f9a;
+}
+div.middle_content {
+  background: transparent url("../images/blue/left.png") right center no-repeat;
+}
+div.middle_content_right{
+  background: transparent url("../images/blue/right.png") right center no-repeat;
+}
+li.item5 a:hover,
+li.item5 a:focus {
+  background: url("../images/blue/menu.png") 0 center no-repeat transparent;
+  color: #ffffff;
+  background-size: cover;
+}
+
+.triaB{
+    border-top: 10px solid rgba(2, 95, 154, 0.50);
+}
+.iconT{
+	background: transparent url("../images/blue/top.png") right center no-repeat;
+}
+.iconB{
+	top: 0px;
+	background: transparent url("../images/blue/bottom.png") right center no-repeat;
+}

@@ -1,0 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>testWebsocket</title>
+<link rel="stylesheet" href="../assets/lib/bootstrap/css/bootstrap.css" type="text/css" />
+</head>
+<body>
+	
+	<div id="text" class="row">
+	  
+	</div>
+
+<script src="../assets/js/jquery-1.9.1.min.js"></script>
+<script src="../assets/js/sockjs-0.3.4.js"></script>
+<script src="../assets/js/stomp.js"></script>
+<script src="../assets/js/common.js"></script>
+<script src="js/testWebsocket.js"></script>
+</body>
+</html>

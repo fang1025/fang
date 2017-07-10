@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fang.sys.dao.RoleMapper">
+	
+	<!-- 实体类 - 数据库映射 -->
+	<resultMap id="BaseResultMap" type="com.fang.sys.entity.RoleEntity" >
+		<id column="id" property="id"  />
+		<result column="roleCode" property="roleCode"/>
+		<result column="roleName" property="roleName"/>
+		<result column="notes" property="notes"/>
+		<result column="enable" property="enable"/>
+		<result column="createBy" property="createBy"/>
+		<result column="createById" property="createById"/>
+		<result column="createTime" property="createTime"/>
+		<result column="lastUpdateBy" property="lastUpdateBy"/>
+		<result column="lastUpdateById" property="lastUpdateById"/>
+		<result column="lastUpdateTime" property="lastUpdateTime"/>
+	</resultMap>
+    
+    <select id="findRoleByParam" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+            roleCode,
+            roleName,
+            notes,
+            id,enable,createBy,createById,createTime,lastUpdateBy,lastUpdateById,lastUpdateTime
+        from  sys_role_tbl where  1=1  and enable <![CDATA[<>]]> '1'
+        <if test="id != null">
+            and id=#{id}
+        </if>
+        order by createTime desc
+    </select>
+
+    <insert id="insertRole" parameterType="com.fang.sys.entity.RoleEntity" >
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+        insert into sys_role_tbl(
+         roleCode, roleName, notes,
+        enable,createBy,createById,createTime,lastUpdateBy,lastUpdateById,lastUpdateTime)
+        values(
+         #{roleCode}, #{roleName}, #{notes},
+        #{enable},#{createBy},#{createById},now(),#{lastUpdateBy},#{lastUpdateById},now())
+    </insert>
+
+    <update id="updateRole" parameterType="com.fang.sys.entity.RoleEntity" >
+        update sys_role_tbl set
+        roleCode = #{roleCode},
+        roleName = #{roleName},
+        notes = #{notes},
+        lastUpdateBy=#{lastUpdateBy},lastUpdateById=#{lastUpdateById},lastUpdateTime=now()
+        where id = #{id}
+    </update>
+    
+    <update id="updateRoleEnable" parameterType="java.util.Map" >
+        update sys_role_tbl set
+        enable = #{enable},
+        lastUpdateBy=#{lastUpdateBy},lastUpdateById=#{lastUpdateById},lastUpdateTime=now()
+        where id = #{id}
+    </update>
+
+    <delete id="deleteRoleById">
+        delete from sys_role_tbl 
+        where id = #{id}
+    </delete>
+    
+    <!--删除角色的已有权限-->
+    <delete id="deletePrivilegeByRole" parameterType="java.util.Map">
+        delete from sys_role_function_rl where roleId = #{roleId} and ifnull(isfinal,0) != 1  
+    </delete>
+    <!--给角色分配权限-->
+    <insert id="grantPrivilege" parameterType="java.util.Map">
+    	insert into sys_role_function_rl 
+    	(functionid,roleid) 
+    	select id,#{roleId} from sys_function_tbl where id in (${ids})
+    </insert>
+
+	<!--查询角色数据，用于给用户分配角色-->
+	<select id="findForAssignRole" resultType="java.util.Map" parameterType="java.util.Map">
+        select r.*,rl.userId as existRole from sys_role_tbl r 
+        LEFT JOIN sys_user_role_rl rl on r.id = rl.roleId and rl.userId = #{userId} 
+        where  r.enable <![CDATA[<>]]> '1' 
+        order by r.id
+    </select>
+    
+    <!-- 根据用户删除sys_user_role_rl数据 -->
+    <delete id="deleteRoleRlByUser" parameterType="java.util.Map">
+        delete from sys_user_role_rl where userId = #{userId} 
+    </delete>
+    
+    <insert id="assignRole" parameterType="java.util.Map">
+    	insert into sys_user_role_rl 
+    	(userId,roleId) 
+    	select #{userId},id
+    	from sys_role_tbl where id in (${ids})
+    </insert>
+
+
+</mapper>

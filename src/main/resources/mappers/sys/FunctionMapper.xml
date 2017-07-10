@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fang.sys.dao.FunctionMapper">
+	
+	<!-- 实体类 - 数据库映射 -->
+	<resultMap id="BaseResultMap" type="com.fang.sys.entity.FunctionEntity" >
+		<id column="id" property="id"  />
+		<result column="functionName" property="functionName"/>
+		<result column="functionUrl" property="functionUrl"/>
+		<result column="functionId" property="functionId"/>
+		<result column="extraUrl" property="extraUrl"/>
+		<result column="htmlStr" property="htmlStr"/>
+		<result column="functionIcon" property="functionIcon"/>
+		<result column="functionClass" property="functionClass"/>
+		<result column="type" property="type"/>
+		<result column="lft" property="lft"/>
+		<result column="rgt" property="rgt"/>
+		<result column="notes" property="notes"/>
+		<result column="enable" property="enable"/>
+		<result column="createBy" property="createBy"/>
+		<result column="createById" property="createById"/>
+		<result column="createTime" property="createTime"/>
+		<result column="lastUpdateBy" property="lastUpdateBy"/>
+		<result column="lastUpdateById" property="lastUpdateById"/>
+		<result column="lastUpdateTime" property="lastUpdateTime"/>
+	</resultMap>
+    
+    <select id="findFunctionByParam" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+            functionName,
+            functionUrl,
+            functionId,
+            extraUrl,
+            htmlStr,
+            functionIcon,
+            functionClass,
+            type,
+            lft,
+            rgt,
+            notes,
+            id,createBy,createById,createTime,lastUpdateBy,lastUpdateById,lastUpdateTime
+        from  sys_function_tbl where  1=1  and enable <![CDATA[<>]]> '1'
+        <if test="id != null">
+            and id=#{id}
+        </if>
+        <if test="lft != null">
+            and lft > #{lft}
+        </if>
+        <if test="rgt != null">
+            and #{rgt} > rgt 
+        </if>
+        order by lft
+    </select>
+
+    <insert id="insertFunction" parameterType="com.fang.sys.entity.FunctionEntity" >
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+        insert into sys_function_tbl(
+         functionName, functionUrl, functionId, extraUrl, htmlStr, functionIcon, functionClass, type, lft, rgt, notes,
+        enable,createBy,createById,createTime,lastUpdateBy,lastUpdateById,lastUpdateTime)
+        values(
+         #{functionName}, #{functionUrl}, #{functionId}, #{extraUrl}, #{htmlStr}, #{functionIcon}, #{functionClass}, #{type}, #{lft}, #{rgt}, #{notes},
+        #{enable},#{createBy},#{createById},now(),#{lastUpdateBy},#{lastUpdateById},now())
+    </insert>
+
+    <update id="updateFunction" parameterType="com.fang.sys.entity.FunctionEntity" >
+        update sys_function_tbl set
+        functionName = #{functionName},
+        functionUrl = #{functionUrl},
+        functionId = #{functionId},
+        extraUrl = #{extraUrl},
+        htmlStr = #{htmlStr},
+        functionIcon = #{functionIcon},
+        functionClass = #{functionClass},
+        type = #{type},
+        lft = #{lft},
+        rgt = #{rgt},
+        notes = #{notes},
+        lastUpdateBy=#{lastUpdateBy},lastUpdateById=#{lastUpdateById},lastUpdateTime=now()
+        where id = #{id}
+    </update>
+    
+    <update id="updateFunctionEnable" parameterType="java.util.Map" >
+        update sys_function_tbl set
+        enable = #{enable},
+        lastUpdateBy=#{lastUpdateBy},lastUpdateById=#{lastUpdateById},lastUpdateTime=now()
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFunctionById">
+        delete from sys_function_tbl 
+        where id = #{id}
+    </delete>
+
+
+    <delete id="deleteFunctionByParam" parameterType="java.util.Map">
+        delete from sys_function_tbl 
+        where lft >= #{lft} and ${rgt} >= rgt 
+    </delete>
+    
+    <update id="updateFunctionLft" parameterType="java.util.Map" >
+        update sys_function_tbl set
+        lft = lft + #{number},
+        lastUpdateBy=#{lastUpdateBy},lastUpdateById=#{lastUpdateById},lastUpdateTime=now()
+        where lft ${op} #{lft}
+    </update>
+    <update id="updateFunctionRgt" parameterType="java.util.Map" >
+        update sys_function_tbl set
+        rgt = rgt + #{number},
+        lastUpdateBy=#{lastUpdateBy},lastUpdateById=#{lastUpdateById},lastUpdateTime=now()
+        where rgt ${op} #{rgt}
+    </update>
+    
+    
+    <select id="findFunctionByUser" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select DISTINCT func.* from  
+        sys_function_tbl func, sys_role_function_rl rf,sys_user_role_rl orole
+        where func.enable <![CDATA[<>]]> '1' 
+        and func.id = rf.functionId and rf.roleId = orole.roleId and orole.userId =  #{userId}
+        order by lft 
+    </select>
+    
+    <select id="findFunctionByLftAndRgt" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select functionName,
+            functionUrl,
+            functionId,
+            extraUrl,
+            htmlStr,
+            functionIcon,
+            type,
+            lft,
+            rgt,
+            sortNo,
+            notes,
+            id,createBy,createById,createTime,lastUpdateBy,lastUpdateById,lastUpdateTime
+        from  sys_function_tbl where  1=1  and enable <![CDATA[<>]]> '1'
+        <if test="id != null">
+            and id=#{id}
+        </if>
+        <if test="lft != null">
+            and lft >= #{lft}
+        </if>
+        <if test="rgt != null">
+            and #{rgt} >= rgt 
+        </if>
+        <if test="rgt_ != null">
+            and rgt=#{rgt_}
+        </if>
+        <if test="lft_ != null">
+            and lft=#{lft_}
+        </if>
+    </select>
+    
+	<!-- 根据角色查找功能数据 -->
+    <select id="findFunctionByRoleForPrivilege" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT func.*, role.id AS existFunc, role.isfinal FROM sys_function_tbl func
+		LEFT JOIN sys_role_function_rl role 
+		ON func.id = role.functionid AND role.roleid = #{roleId} 
+		where 1 = 1 
+		<if test='funcIdList != null'>
+            and func.id in (
+			<foreach collection="funcIdList" item="id_" index="index" separator=",">
+			#{id_}
+			</foreach> 
+			) 
+        </if>
+		ORDER BY func.lft ASC
+    </select>
+
+</mapper>

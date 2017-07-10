@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fang.sys.dao.DictMapper">
+	
+	<!-- 实体类 - 数据库映射 -->
+	<resultMap id="BaseResultMap" type="com.fang.sys.entity.DictEntity" >
+		<id column="id" property="id"  />
+		<result column="dictCode" property="dictCode"/>
+		<result column="dictName" property="dictName"/>
+		<result column="dictValue" property="dictValue"/>
+		<result column="dictText" property="dictText"/>
+		<result column="sortNo" property="sortNo"/>
+		<result column="enable" property="enable"/>
+		<result column="createBy" property="createBy"/>
+		<result column="createById" property="createById"/>
+		<result column="createTime" property="createTime"/>
+		<result column="lastUpdateBy" property="lastUpdateBy"/>
+		<result column="lastUpdateById" property="lastUpdateById"/>
+		<result column="lastUpdateTime" property="lastUpdateTime"/>
+	</resultMap>
+    
+    <select id="findDictByParam" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+            dictCode,
+            dictName,
+            dictValue,
+            dictText,
+            sortNo,
+            id,enable,createBy,createById,createTime,lastUpdateBy,lastUpdateById,lastUpdateTime
+        from  sys_dict_tbl where  1=1  
+        <if test="id != null">
+            and id=#{id}
+        </if>
+        <if test="dictCode != null">
+            and dictCode=#{dictCode}
+        </if>
+        <if test="dictValue != null">
+            and dictValue=#{dictValue}
+        </if>
+        order by dictCode,enable,sortNo
+    </select>
+
+    <insert id="insertDict" parameterType="com.fang.sys.entity.DictEntity" >
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+        insert into sys_dict_tbl(
+         dictCode, dictName, dictValue, dictText, sortNo,
+        enable,createBy,createById,createTime,lastUpdateBy,lastUpdateById,lastUpdateTime)
+        values(
+         #{dictCode}, #{dictName}, #{dictValue}, #{dictText}, #{sortNo},
+        #{enable},#{createBy},#{createById},now(),#{lastUpdateBy},#{lastUpdateById},now())
+    </insert>
+
+    <update id="updateDict" parameterType="com.fang.sys.entity.DictEntity" >
+        update sys_dict_tbl set
+        dictCode = #{dictCode},
+        dictName = #{dictName},
+        dictValue = #{dictValue},
+        dictText = #{dictText},
+        sortNo = #{sortNo},
+        lastUpdateBy=#{lastUpdateBy},lastUpdateById=#{lastUpdateById},lastUpdateTime=now()
+        where id = #{id}
+    </update>
+    
+    <update id="updateDictEnable" parameterType="java.util.Map" >
+        update sys_dict_tbl set
+        enable = (enable+1) % 2,
+        lastUpdateBy=#{lastUpdateBy},lastUpdateById=#{lastUpdateById},lastUpdateTime=now()
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDictById">
+        delete from sys_dict_tbl 
+        where id = #{id}
+    </delete>
+
+	<select id="findDictcode" resultType="java.util.Map" parameterType="java.util.Map">
+        select DISTINCT dictCode, dictName from  sys_dict_tbl 
+    </select>
+
+</mapper>
