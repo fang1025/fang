@@ -9,7 +9,7 @@ Fang是Java语言的系统架构，使用Spring整合开源框架。
 - 核心框架：spring-4.3.0
 - MVC框架：spring-webmvc-4.3.0
 - 分布式服务框架：dubbo-2.5.3
-- 数据库：mysql，mongoDB
+- 数据库：mysql（读写分离），mongoDB
 - 缓存：redis
 - Session管理：spring-session +　redis
 - ORM：mybatis-3.4.0，hibernate（用来生成数据库表）
@@ -33,5 +33,4 @@ Fang是Java语言的系统架构，使用Spring整合开源框架。
 ## note
 - 需要安装的软件：mysql，mongodb，tomcat，nginx，redis，activemq
 - 安装zookeeper，或者删除配置文件dubbo.xml
-
 
