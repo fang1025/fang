@@ -32,7 +32,7 @@
 	</bean>
 
 	<bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
-		<property name="dataSource" ref="dataSource" />
+		<property name="dataSource" ref="writeDataSource" />
 		<property name="dbIdentityUsed" value="false" />
 		<property name="transactionManager" ref="transactionManager" />
 		<property name="databaseSchemaUpdate" value="true" />

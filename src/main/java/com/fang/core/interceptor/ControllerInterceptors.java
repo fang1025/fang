@@ -93,22 +93,23 @@ public class ControllerInterceptors implements HandlerInterceptor {
 			return;
 		UserEntity user = (UserEntity) request.getSession().getAttribute(Constants.USERSESSION);
 		
-		Class<?> c = object.getClass();
-		String methodName = null;
-		try {
-			Method m = c.getDeclaredMethod("getMethod", null);
-			if (m != null) {
-				Method method = (Method) m.invoke(object);
-				methodName = method.getName();
-			}
-		} catch (Exception e) {
-			logger.equals(e);
-		}
+//		Class<?> c = object.getClass();
+//		String methodName = null;
+//		try {
+//			Method m = c.getDeclaredMethod("getMethod", null);
+//			if (m != null) {
+//				Method method = (Method) m.invoke(object);
+//				methodName = method.getName();
+//			}
+//		} catch (Exception e) {
+//			logger.equals(e);
+//		}
 
 		OperateRecordEntity entity = new OperateRecordEntity();
 		entity.setUrl(url);
-		entity.setMethodName(methodName);
+		entity.setMethodName(object.toString());
 		entity.setIp(request.getRemoteHost());
+		entity.setExceptionMessage(arg3 == null?null:arg3.getMessage());
 
 		queueSender.send(Constants.QUEQUE_OPERATE, entity);
 

@@ -26,6 +26,7 @@ public class BaseController implements Constants  {
 		response.setContentType("application/json;charset=UTF-8");
 		byte[] bytes = JsonUtil.objectTojson(result).getBytes("utf-8");
 		response.getOutputStream().write(bytes);
+
 	}
 	
 

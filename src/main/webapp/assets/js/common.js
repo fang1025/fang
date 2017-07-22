@@ -1519,9 +1519,8 @@ fangjs.ajax = function(url, paramstr, callback, async, method){
 					lastAlertTime = new Date();
 				}
 				return;
-			}
-			else if(xmlhttp.readyState == 4 && xmlhttp.status == 999){
-				window.location.href = ROOT_PATH + "login.jsp";
+			}else if(xmlhttp.readyState == 4 && xmlhttp.status == 999){
+				window.location.href = ROOT_PATH + "login.html";
 			}
         };
         xmlhttp.open(method, url, async);

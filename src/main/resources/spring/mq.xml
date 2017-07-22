@@ -38,6 +38,7 @@
 		acknowledge="auto"><!-- 可写多个监听器 -->
 		<jms:listener destination="fang.queue" ref="queueMessageListener" />
 		<jms:listener destination="fang.queue.email" ref="emailDealListener" />
+		<jms:listener destination="fang.queue.operate" ref="queueOperateListener" />
 	</jms:listener-container>
 	<!-- 定义Topic监听器 -->
 	<jms:listener-container destination-type="topic"

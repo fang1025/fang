@@ -26,10 +26,15 @@
     
  
     
-   <!-- service总AOP -->    
+   <!-- service总AOP
     <bean id="serviceIntercepter" class="com.fang.core.interceptor.ServiceInterceptors" />
     <aop:config>
     	<aop:advisor pointcut="execution(public * com.fang..service..*Service.*(..))" advice-ref="serviceIntercepter" /> 
+    </aop:config>
+    -->
+    <bean id="mapperAspect" class="com.fang.core.aspect.MapperAspect" />
+    <aop:config>
+        <aop:advisor pointcut="execution(public * com.fang..dao..*Mapper.*(..))" advice-ref="mapperAspect" />
     </aop:config>
 	
 </beans>

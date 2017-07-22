@@ -34,8 +34,14 @@ public class OperateRecordEntity extends BaseEntity implements Serializable {
      * ip
      */
     private String ip;
-    
-    /** 
+
+	/**
+	 * 异常信息
+	 */
+	private String exceptionMessage;
+
+
+	/**
 	 * 备注
 	 */
 	private String rmks;
@@ -78,6 +84,15 @@ public class OperateRecordEntity extends BaseEntity implements Serializable {
 
 	public void setRmks(String rmks) {
 		this.rmks = rmks;
+	}
+
+
+	public String getExceptionMessage() {
+		return exceptionMessage;
+	}
+
+	public void setExceptionMessage(String exceptionMessage) {
+		this.exceptionMessage = exceptionMessage;
 	}
 
 }
