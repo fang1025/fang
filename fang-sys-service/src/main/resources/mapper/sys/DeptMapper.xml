@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fang.sys.dao.DeptMapper">
+	
+	<!-- 实体类 - 数据库映射 -->
+	<resultMap id="BaseResultMap" type="com.fang.sys.entity.DeptEntity" >
+		<id column="id" property="id"  />
+		<result column="deptCode" property="deptCode"/>
+		<result column="deptName" property="deptName"/>
+		<result column="deptType" property="deptType"/>
+		<result column="officeTel" property="officeTel"/>
+		<result column="fax" property="fax"/>
+		<result column="notes" property="notes"/>
+		<result column="enable" property="enable"/>
+		<result column="createBy" property="createBy"/>
+		<result column="createById" property="createById"/>
+		<result column="createTime" property="createTime"/>
+		<result column="lastUpdateBy" property="lastUpdateBy"/>
+		<result column="lastUpdateById" property="lastUpdateById"/>
+		<result column="lastUpdateTime" property="lastUpdateTime"/>
+	</resultMap>
+    
+    <select id="findDeptByParam" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+            deptCode,
+            deptName,
+            deptType,
+            officeTel,
+            fax,
+            notes,
+            id,enable,createBy,createById,createTime,lastUpdateBy,lastUpdateById,lastUpdateTime
+        from  sys_dept_tbl where  1=1  and enable <![CDATA[<>]]> '1'
+        <if test="id != null">
+            and id=#{id}
+        </if>
+        order by createTime desc
+    </select>
+
+    <insert id="insertDept" parameterType="com.fang.sys.entity.DeptEntity" >
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+        insert into sys_dept_tbl(
+         deptCode, deptName, deptType, officeTel, fax, notes,
+        enable,createBy,createById,createTime,lastUpdateBy,lastUpdateById,lastUpdateTime)
+        values(
+         #{deptCode}, #{deptName}, #{deptType}, #{officeTel}, #{fax}, #{notes},
+        #{enable},#{createBy},#{createById},now(),#{lastUpdateBy},#{lastUpdateById},now())
+    </insert>
+
+    <update id="updateDept" parameterType="com.fang.sys.entity.DeptEntity" >
+        update sys_dept_tbl set
+        deptCode = #{deptCode},
+        deptName = #{deptName},
+        deptType = #{deptType},
+        officeTel = #{officeTel},
+        fax = #{fax},
+        notes = #{notes},
+        lastUpdateBy=#{lastUpdateBy},lastUpdateById=#{lastUpdateById},lastUpdateTime=now()
+        where id = #{id}
+    </update>
+    
+    <update id="updateDeptEnable" parameterType="java.util.Map" >
+        update sys_dept_tbl set
+        enable = #{enable},
+        lastUpdateBy=#{lastUpdateBy},lastUpdateById=#{lastUpdateById},lastUpdateTime=now()
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDeptById">
+        delete from sys_dept_tbl 
+        where id = #{id}
+    </delete>
+
+
+
+</mapper>

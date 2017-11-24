@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+
+        <!-- 系统信息 start -->
+		<mapping class="com.fang.sys.entity.DeptEntity" />
+		<mapping class="com.fang.sys.entity.UserEntity" />
+		<mapping class="com.fang.sys.entity.FunctionEntity" />
+		<mapping class="com.fang.sys.entity.DictEntity" />
+		<mapping class="com.fang.sys.entity.RoleEntity" />
+		<mapping class="com.fang.sys.entity.EmployeeEntity" /> 
+		<mapping class="com.fang.sys.entity.RoleFunctionEntity" /> 
+		
+        <!-- 系统信息 end -->
+        
+        
+        
+	</session-factory>
+</hibernate-configuration>
