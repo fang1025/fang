@@ -75,7 +75,6 @@ public class UserController extends BaseController {
 
 	/**
      * 新增
-     * @param param
      * @param request
      * @return
      */
@@ -91,7 +90,6 @@ public class UserController extends BaseController {
     
     /**
      * 更新
-     * @param param
      * @param request
      * @return
      */
@@ -148,6 +146,8 @@ public class UserController extends BaseController {
 			result.buildErrorResult("用户不存在！");
 			return result;
 		}
+		logger.debug(user.getPassword());
+		logger.debug(MD5Util.getMD5(map.get("password").toString() + user.getCreateTime().getTime()));
 		if(!user.getPassword().equals(MD5Util.getMD5(map.get("password").toString() + user.getCreateTime().getTime()))){
 			result.buildErrorResult("密码错误！");
 			return result;

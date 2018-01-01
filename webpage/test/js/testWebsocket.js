@@ -4,7 +4,7 @@ $(function() {
 	// 建立websocket连接
 	var sysdate = new Date(), datestr;
 	var _interval = null;
-	var socket = new SockJS(getRootPath() + '/realdata');
+	var socket = new SockJS( '/realdata');
 	stompClient = Stomp.over(socket);
 	stompClient.connect({}, function(frame) {
 		// 定时接收服务器的时间

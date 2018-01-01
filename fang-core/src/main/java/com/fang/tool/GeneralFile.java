@@ -27,7 +27,7 @@ public class GeneralFile {
     private static final String EXECUTETYPE_JAVA = "java";
     private static final String EXECUTETYPE_MYBATIS_XML = "mybatisXML";
 
-    private static String projectPath = "D:/workspace/fang/";//项目的路径
+    private static String projectPath = "D:/gitspace/fang/fang-custom-web/";//项目的路径
     
     //TODO 修改
     private static String packagePath = "com.fang";//java类的基础包路径
@@ -47,11 +47,11 @@ public class GeneralFile {
     private static Object filedLength[] = {}; //字段长度
     private static Object filedNull[] = {}; //字段是否为null
     //TODO preFuncId自动生成权限功能数据，则修改该值，否则为null
-    private static Long preFuncId = null;
+    private static Long preFuncId = 43L;
 
     public static void main(String[] args) throws IOException, TemplateException {
     	//TODO 修改
-        if(reflect("com.fang.sys.entity.DeptEntity")) {
+        if(reflect("com.fang.custom.entity.DataTypeEntity")) {
             execute(true,true,EXECUTETYPE_JSP);
         }
     }
@@ -263,7 +263,7 @@ public class GeneralFile {
             
             if(preFuncId != null){
             	try {
-            		String url ="jdbc:mysql://192.168.1.181:3306/fang?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8";  
+            		String url ="jdbc:mysql://192.168.189.181:3306/fang?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8";
             		String username = "root";  
             		String password = "fang";  
             		Class.forName("com.mysql.jdbc.Driver") ;

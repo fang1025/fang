@@ -24,7 +24,7 @@ public class TaskTimeBean {
 
 	
 //	@Scheduled(cron = "22 * * * * ?")
-//	@Scheduled(fixedDelay = 1000)
+	@Scheduled(fixedDelay = 1000)
 	public void sysdate() {
 		try {
 			this.template.convertAndSend(WebsocketConstants.MASSAGE_PUSH, "fff");

@@ -38,6 +38,9 @@ public interface Constants {
      * http status: 没有访问权限
      */
     Integer NOPRIVILEGE=998;
+
+
+    String[] NOTALLOWATT = new String [] {".js",".exe",".ssh",".php",".bat",".asp",".vbs"};
     
     
     //mq destination
