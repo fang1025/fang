@@ -1,5 +1,6 @@
 package com.fang.core.util;
 
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.context.ContextLoader;
@@ -7,6 +8,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
@@ -34,8 +36,8 @@ public final class RedisUtil {
 		if (redisTemplate == null) {
 			synchronized (RedisUtil.class) {
 				if (redisTemplate == null) {
-					WebApplicationContext wac = ContextLoader.getCurrentWebApplicationContext();
-					redisTemplate = (RedisTemplate<Serializable, Serializable>) wac.getBean("redisTemplate");
+					ApplicationContext ac = SpringContextHolder.getApplicationContext();
+					redisTemplate = (RedisTemplate<Serializable, Serializable>) ac.getBean("redisTemplate");
 				}
 			}
 		}
@@ -76,6 +78,11 @@ public final class RedisUtil {
 		getRedis().boundValueOps(key).set(value);
 	}
 
+	/**
+	 * 是否存在
+	 * @param key
+	 * @return
+	 */
 	public static final Boolean exists(final String key) {
 		expire(key, EXPIRE);
 		return getRedis().hasKey(key);
@@ -133,5 +140,26 @@ public final class RedisUtil {
 		return getRedis().boundValueOps(key).getAndSet(value);
 	}
 
+
+	/**
+	 * HASH 操作
+	 */
+	public static final void hset(final String key, final Serializable hkey,final Serializable hvalue){
+		getRedis().boundHashOps(key).put(hkey,hvalue);
+	}
+	public static final void hset(final String key , Map<String,Object> map){
+		getRedis().boundHashOps(key).putAll(map);
+	}
+
+	public static final Object hget(final String key, final Serializable hkey){
+		return getRedis().boundHashOps(key).get(hkey);
+	}
+	public static final Map<Object,Object> hget(final String key ){
+		return getRedis().boundHashOps(key).entries();
+	}
+
+	public static final void hdel(final String key, final Serializable hkey){
+		getRedis().boundHashOps(key).delete(hkey);
+	}
 
 }

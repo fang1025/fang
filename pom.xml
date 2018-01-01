@@ -16,6 +16,7 @@
 		<module>fang-comm-service</module>
 		<module>fang-comm-api</module>
 		<module>fang-sys-service-jar</module>
+		<module>fang-custom-web</module>
 	</modules>
     <name>fang</name>
 	<url>http://maven.apache.org</url> 

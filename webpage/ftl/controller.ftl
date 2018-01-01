@@ -27,7 +27,6 @@ public class ${upperEntityName?if_exists }Controller extends BaseController {
     /**
      * 分页查询
      * @param param
-     * @param request
      * @return
      */
     @RequestMapping("/find${upperEntityName?if_exists }ByPage")
@@ -40,7 +39,6 @@ public class ${upperEntityName?if_exists }Controller extends BaseController {
 	 /**
      * 查询数据
      * @param param
-     * @param request
      * @return
      */
     @RequestMapping("/find${upperEntityName?if_exists }ByParam")
@@ -52,8 +50,6 @@ public class ${upperEntityName?if_exists }Controller extends BaseController {
 
 	/**
      * 新增
-     * @param param
-     * @param request
      * @return
      */
     @RequestMapping("/add${upperEntityName?if_exists }")
@@ -68,8 +64,6 @@ public class ${upperEntityName?if_exists }Controller extends BaseController {
     
     /**
      * 更新
-     * @param param
-     * @param request
      * @return
      */
     @RequestMapping("/update${upperEntityName?if_exists }")
@@ -84,11 +78,10 @@ public class ${upperEntityName?if_exists }Controller extends BaseController {
     /**
      * 更新enable字段
      * @param param
-     * @param request
      * @return
      */
     @RequestMapping("/update${upperEntityName?if_exists }Enable")
-    public @ResponseBody Object update${upperEntityName?if_exists }Enable(@RequestBody ModelMap param, HttpServletRequest request) {
+    public @ResponseBody Object update${upperEntityName?if_exists }Enable(@RequestBody ModelMap param) {
        	FangResult result = new FangResult();
        	service.update${upperEntityName?if_exists }Enable(param);
        	result.buildSuccessResult();
@@ -98,11 +91,10 @@ public class ${upperEntityName?if_exists }Controller extends BaseController {
 	/**
      * 删除
      * @param param
-     * @param request
      * @return
      */
     @RequestMapping("/delete${upperEntityName?if_exists }ById")
-    public @ResponseBody Object delete${upperEntityName?if_exists }ById(@RequestBody ModelMap param, HttpServletRequest request) {
+    public @ResponseBody Object delete${upperEntityName?if_exists }ById(@RequestBody ModelMap param) {
         FangResult result = new FangResult();
         service.delete${upperEntityName?if_exists }ById(param);
         result.buildSuccessResult();

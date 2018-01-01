@@ -2,6 +2,7 @@
 var ROOT_PATH = '/';
 var AJAX_ROOT = '/fang/';
 var APP_ID = 'fang';
+var CUSTOM_APP = 'custom',CACHE_APP='fang';
 var ctx = getRootPath();
 var port = "";
 
@@ -46,9 +47,12 @@ window.onload = function(){
 	
 	//文本框添加验证事件
 	addVerify(body);
-	
-	//jQuery("html").niceScroll({styler:"fb",cursorcolor:"#c1c1c1", cursorwidth: '6', cursorborderradius: '20px', background: 'rgba(193, 193, 193, 0.48)', cursorborder: ''});
-	
+
+	//如果是弹出页面，
+	if(window.name.indexOf("layui") != -1){
+		$(".box").css("border-top", " 0px")
+		$(".box-body").css("padding-bottom","50px");
+	}
 	
 };
 
@@ -1554,13 +1558,14 @@ fangjs.execjava = function(url, params, callback, async, type, httpMethod, appId
     if(typeof async == 'undefined') async = true;
     if(!httpMethod) httpMethod = 'POST';
     if(searchParams){
+    	if(!params) params = {};
     	for ( var key in searchParams) {
     		params[key] = searchParams[key];
 		}
     }
     if(!appId) appId = APP_ID;
     var paramstr = params ? JSON.stringify(params) : null;
-    var results = fangjs.ajax("/" + APP_ID + "/" + url, paramstr, callback, async, httpMethod);
+    var results = fangjs.ajax("/" + appId + "/" + url, paramstr, callback, async, httpMethod);
     if(async){
     	//if(loadDivId)
         //$$(loadDivId).innerHTML = "<table width='100%' height='100%' boder='0'><tr><td align='center' valign='middle'><img src='" + JsSupport.getUISPContextPath() + "/img/loading/001.gif'><img src='" + JsSupport.getUISPContextPath() + "/img/loading/Loading.gif'></td></tr></table>";
@@ -2038,10 +2043,10 @@ fangjs.loadDict = function(params,callback){
 		}
 	}
 	if(dictCodeList.length){
-		fangjs.execjava('/cache/findDictCachelByParam', {"dictCodeList":dictCodeList}, function(result){
+		fangjs.execjava('cache/findDictCachelByParam', {"dictCodeList":dictCodeList}, function(result){
 			dictMap = fangjs.jsonMerge([dictMap,result.dictMap])
 			fangjs.setLocalStorage("dictMap", dictMap);
-		},false);
+		},false,null,null,CACHE_APP);
 	}
 	if(callback){
 		callback(dictMap)
@@ -2062,14 +2067,152 @@ fangjs.initDict = function(dictMap){
 			dom = jQuery("#" + dictKey);
 		} 
 		if(dom.length == 0) continue;
-		var options = [];
+		var options = [],val = dom.val();
 		for(var key in values){
-			options.push("<option value='" + key + "'>" + values[key] + "</option>");
+			options.push("<option " + ((val&&val == key)?"selected":"") + " value='" + key + "'>" + values[key] + "</option>");
 		}
 		jQuery(options.join("")).appendTo(dom);
 		//dom.parent().find(".uew-select-text").text("请选择");
 	}
+};
+
+/**
+ * 清除LocalStorage里面的字典数据
+ * @param dictCode
+ */
+fangjs.deleteDictStorage = function(dictCode){
+    var dictMap = fangjs.getLocalStorage("dictMap")||{};
+    if(!dictCode){
+        dictMap[dictCode] = undefined;
+    }else{
+        fangjs.deleteLocalStorage("dictMap");
+    }
+};
+
+
+fangjs.updateColumnDisplay = function(arr1,arr2){
+    var codeList = [];
+    arr1.foreach(function(){
+        codeList.push(this.enName);
+    });
+    arr2.foreach(function(){
+        if(codeList.indexOf(this.enName) == -1){
+            arr1.push(this);
+        }
+    });
+};
+
+/**
+ * 查询显示设置数据
+ */
+fangjs.loadDataType = function(params,callback){
+    var columnDisplayMap = fangjs.getLocalStorage("columnDisplay")||{};
+    //如果localStorage里面没有数据，则查询数据库
+//	if(!columnDisplayMap[params.code]){
+    fangjs.execjava('custom/dataType/findDataTypeByCodeFromCache/' + params.code, null, function(result){
+        dataType =  result[params.code];
+        if(!columnDisplayMap[params.code]){
+            columnDisplayMap[params.code] = result[params.code].dataColumnList;
+        }else{
+            fangjs.updateColumnDisplay(columnDisplayMap[params.code],result[params.code].dataColumnList);
+        }
+        fangjs.setLocalStorage("columnDisplay", columnDisplayMap);
+    },false,"json","get",CUSTOM_APP);
+//	}
+    if(callback){
+        callback(columnDisplayMap[params.code],params)
+    }else{
+        fangjs.dealColumnDisplay(columnDisplayMap[params.code],params);
+    }
+};
+
+var cols = [],ths = [];
+//一般处理显示设置方法
+fangjs.dealColumnDisplay = function(columnDisplay,params){
+    if(!columnDisplay || !columnDisplay.length){
+        return;
+    }
+    var ids = params.ids,cls = params.cls;
+    if(ids) ids = ids.split(",");
+    if(cls) cls = cls.split(",");
+    cols = [];
+    var htmlStr = params.start?params.start:"";
+    for(var i = 0; i < columnDisplay.length; i++){
+        var item = columnDisplay[i];
+        if(item.show == 1 || (item.show != 0 && item.isDefault == 1)){
+            if(params.hideCols && params.hideCols.indexOf(item.enName) != -1){
+                continue;
+            }
+            cols.push(item.enName);
+            ths.push(item.zhName?item.zhName:item.enName);
+            if(item.callbackFun && item.callbackFun.trim() != ''){
+                htmlStr += functionList[item.callbackFun].call();
+            }else if(item.formType == 'select'){
+                htmlStr += '<th colunmName="' + item.enName + '" click="showOptions" ' + (item.dictType?'data-dictType="' + item.dictType + '"':'') + ' data-options="' + item.options + '">' + (item.zhName?item.zhName:item.enName) + '</th>';
+            }else{
+                htmlStr += '<th colunmName="' + item.enName + '" ' + (item.isSort == 1?'click="sortByColumn" ':'') + '>' + (item.zhName?item.zhName:item.enName) + '</th>';
+            }
+        }
+    }
+    htmlStr += (params.end?params.end:"")
+    if(ids && ids.length){
+        for(var i = 0; i < ids.length; i++){
+            $("#" + ids[i]).find("tr").html(htmlStr);
+        }
+    }
+    if(cls && cls.length){
+        for(var i = 0; i < ids.length; i++){
+            $("." + cls[i]).find("tr").html(htmlStr);
+        }
+    }
+};
+
+funcList.showOptions = function(){
+    var data_options = this.getAttribute("data-options");
+    var options = data_options.split(",");
+    var str = '<div>';
+    for(var j = 0; j < options.length; j++){
+        str += '<i param="' + options[j] + '" class="icon icon-check"></i><span>' + options[j] + '</span>';
+    }
+    str += '<button type="button" class="btn btn-default" click="determine">确定</button>';
 }
+
+/**
+ * 打开配置列表页面
+ */
+funcList.showColumnSet = function(params){
+    var openSetPage = function(data,p){
+//		layer.tips("与数据库数据重复！", eve, {
+//			  tips: [t > 50?1:3,'#3595CC'],
+//			  time: 4000
+//			});
+        layer.closeAll();
+        layer.open({
+            type: 2,
+//			  skin: 'columnSet',
+            title: '<span style="margin-left: 130px;">隐藏列表</span><span style="margin-left: 330px;">显示列表</span>',
+            shadeClose: false,
+            shade: 0,
+            offset: ['33px'],
+//			  offset: 'r',
+            scrollbar:false,
+//			  anim : 1,
+            move: false,
+            tips:[3],
+            resize : false,
+            area: ['780px','80%'],
+            content: '../base/columnSet.jsp?tableName=' + p.code
+//			  end:functionList.loadData
+
+        });
+//		fangjs.openDialog('base/columnSet.jsp?tableName=' + p.tableName,"配置列表", "800px", "80%",functionList.loadData,false,1);
+    }
+    params = params||{};
+    params.code = code;
+    fangjs.loadDataType(params,openSetPage);
+};
+
+
 
 
 /**

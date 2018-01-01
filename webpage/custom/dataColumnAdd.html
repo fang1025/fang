@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<title>数据字段</title>
+		<!-- css -->
+		<link href="../assets/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+  		<!-- Theme style -->
+		<link rel="stylesheet" href="../assets/css/AdminLTE.css">
+		<link rel="stylesheet" href="../assets/css/style.css">
+	</head>
+
+	<body>
+	
+		<div class="box margin-bottom-none">
+			<input type="hidden" id="id" class="m-text" >
+			<input type="hidden" id="dataTypeId" class="m-text" >
+			<input type="hidden" id="code" class="m-text" >
+			
+			<div class="box-body">
+				<div class="form-group col-sm-6">
+					<label>字段名称</label>
+					<input type="text" class="form-control" id="enName" maxlen="68"verifyType="noNull" /> 
+				</div>
+				<div class="form-group col-sm-6">
+					<label>显示名称</label>
+					<input type="text" class="form-control" id="zhName" maxlen="48"  change="zhNameChange" />
+				</div>
+
+				<div class="form-group col-sm-12" style="border-bottom: 1px dashed;border-bottom-color: #3c3c3c;">
+					<span>列表页面属性</span>
+				</div>
+
+				<div class="form-group col-sm-6">
+					<label>默认显示</label>
+					<select type="text" class="form-control" id="isDefault" maxlen="255"verifyType="noNull" >
+						<option value="1">是</option><option value="2">否</option>
+					</select>
+					
+				</div>
+				<div class="form-group col-sm-6">
+					<label>是否需要排序</label>
+					<select type="text" class="form-control" id="isSort" maxlen="255"verifyType="noNull" >
+						<option value="2">否</option><option value="1">是</option>
+					</select>
+					
+				</div>
+				<div class="form-group col-sm-6">
+					<label>回掉方法名称</label>
+					<input type="text" class="form-control" id="callbackFun" maxlen="68" /> 
+				</div>
+				<div class="form-group col-sm-6">
+					<label>排序</label>
+					<input type="text" class="form-control" id="sortNo" maxlen="255"verifyType="noNull" /> 
+				</div>
+				<div class="form-group col-sm-12" style="border-bottom: 1px dashed;border-bottom-color: #3c3c3c;">
+					<span>新增页面属性</span>
+				</div>
+				<div class="form-group col-sm-6">
+					<label>是否需要录入</label>
+					<select type="text" class="form-control" id="isEdit" maxlen="255" >
+						<option value="1">用户录入</option><option value="2">在页面上隐藏</option><option value="0">无需录入</option>
+					</select>
+					
+				</div>
+				<div class="form-group col-sm-6">
+					<label>表单类型</label>
+					<select type="text" class="form-control" id="formType" maxlen="8" change="formTypeChange" >
+						<option value="">请选择</option>
+						<option value="input">输入框</option><option value="select">下拉框</option><option value="textarea">文本框</option>
+					</select>
+				</div>
+
+				<div class="form-group col-sm-6 hidden optionsDiv">
+					<label>下拉选项(直接设置)</label>
+					<input type="text" class="form-control"  id="options"  placeholder="选项以英文度号分隔，如：男,女"/>
+				</div>
+				<div class="form-group col-sm-6 hidden optionsDiv">
+					<label>下拉选项(取字典的值)</label>
+					<input type="text" class="form-control"  id="dictType"  placeholder=""/>
+				</div>
+
+				<div class="form-group col-sm-6">
+					<label>表单长度单位</label>
+					<input type="text" class="form-control" id="colLen" maxlen="255" /> 
+				</div>
+				<div class="form-group col-sm-6">
+					<label>表单验证类型</label>
+					<select type="text" class="form-control" id="verifytype" maxlen="18" >
+						<option value="">请选择</option>
+						<option value="no">只验证字段长度</option><option value="noNull">不能为空</option><option value="number">数字</option><option value="positive">正数</option><option value="nature">自然数（包含0的正数）</option><option value="allInteger">整数</option><option value="positiveInt">正整数</option><option value="mail">邮箱</option><option value="mobile">手机号码</option><option value="phone">固话</option><option value="phoneORmobile">手机及固话</option><option value="idCard">身份证号码</option><option value="numberAndEnglish">英文数字组合</option>
+					</select>
+					
+				</div>
+				<div class="form-group col-sm-6">
+					<label>重复性验证地址</label>
+					<input type="text" class="form-control" id="verifyUrl" maxlen="32" /> 
+				</div>
+				<div class="form-group col-sm-6">
+					<label>最小长度</label>
+					<input type="text" class="form-control" id="minlen" maxlen="255" /> 
+				</div>
+				<div class="form-group col-sm-6">
+					<label>最大长度</label>
+					<input type="text" class="form-control" id="maxlen" maxlen="255" /> 
+				</div>
+				<div class="form-group col-sm-6">
+					<label>提示字符</label>
+					<input type="text" class="form-control" id="placeholder" maxlen="128" /> 
+				</div>
+
+				<div class="form-group col-sm-12" style="border-bottom: 1px dashed;border-bottom-color: #3c3c3c;">
+					<span>数据库属性</span>
+				</div>
+				<div class="form-group col-sm-6">
+					<label>数据类型</label>
+					<select type="text" class="form-control" id="dataType" maxlen="10" >
+						<option value="varchar">字符串</option>
+						<option value="int">整数</option><option value="double">小数</option><option value="text">文本</option>
+					</select>
+					
+				</div>
+				<div class="form-group col-sm-6">
+					<label>可以为空</label>
+					<select type="text" class="form-control" id="isNullable" maxlen="255" >
+						<option value="0">可以</option><option value="1">不可以</option>
+					</select>
+					
+				</div>
+				<div class="form-group col-sm-6">
+					<label>默认值</label>
+					<input type="text" class="form-control" id="defaultValue" maxlen="48" /> 
+				</div>
+				<div class="form-group col-sm-6">
+					<label>索引类型</label>
+					<select type="text" class="form-control" id="indexType" maxlen="48" >
+						<option value="">请选择</option>
+						<option value="Unique">唯一性约束</option><option value="Normal">普通索引</option>
+					</select>
+					
+				</div>
+			</div>
+
+			<div class="box-footer fixed-bottom">
+				<div class=" col-sm-12">
+					<a class="btn btn-default pull-right" click="saveDataColumn"> 保存 </a>
+				</div>
+			</div>
+		</div>
+	
+		<script src="../assets/js/jquery-1.9.1.min.js"></script>
+		<script src="../assets/lib/bootstrap/js/bootstrap.js"></script>
+		<script src="../assets/lib/layer/layer.js"></script>
+		<script src="../assets/js/pingyin.js"></script>
+		<script src="../assets/js/common.js"></script>
+		<script src="js/ctx.js"></script>
+		<script src="js/dataColumnAdd.js"></script>
+
+</body>
+</html>

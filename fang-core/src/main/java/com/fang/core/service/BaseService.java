@@ -27,7 +27,7 @@ public class BaseService {
 	 * 启动分页查询 
 	 */
     protected Page<?> startPage(Map<String, Object> params) {
-    	int page = 0, pageSize = 0;
+    	int page = 1, pageSize = 10;
     	if(params.containsKey("page")){
         	page = Integer.parseInt(params.get("page").toString());
         }
