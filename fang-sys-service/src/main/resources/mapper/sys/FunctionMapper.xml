@@ -97,7 +97,7 @@
 
     <delete id="deleteFunctionByParam" parameterType="java.util.Map">
         delete from sys_function_tbl 
-        where lft >= #{lft} and ${rgt} >= rgt 
+        where lft >= #{lft} and #{rgt} >= rgt
     </delete>
     
     <update id="updateFunctionLft" parameterType="java.util.Map" >
