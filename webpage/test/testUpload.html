@@ -11,7 +11,7 @@
 	<div id="text" class="row">
 		<div class="container">
 			<div class="file-loading">
-				<input id="file" name="files" type="file" multiple>
+				<input id="file" name="file" type="file" multiple>
 			</div>
 		</div>
 	  
@@ -25,7 +25,7 @@
 	<script>
         $(document).on("ready", function() {
             $("#file").fileinput({
-                uploadUrl: "/" + APP_ID + "/upload/onlyUpload",
+                uploadUrl: "/" + APP_ID + "/upload/onlyUploadSingle",
                 maxFileCount: 5,
                 browseOnZoneClick: true,
                 language: 'zh',

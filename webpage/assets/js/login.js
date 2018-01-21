@@ -40,7 +40,7 @@ jQuery(document).ready(function() {
     			fangjs.setCookie('userId', user.id);
     			fangjs.setLocalStorage('user', user);
     			if(data.functionList){
-    				fangjs.setSessionStorage("functionList", data.functionList)
+    				fangjs.setLocalStorage("functionList", data.functionList)
     			}
     			var from = fangjs.getParamFromURl("from");
     			if(from && from != "signup.html"){
@@ -64,7 +64,7 @@ jQuery(document).ready(function() {
             pasconot.html('密码不能为空');
             return false;
         }
-    	pasconot.html('');
+    	pasconot.html('&nbsp;');
     	return true;
     };
     

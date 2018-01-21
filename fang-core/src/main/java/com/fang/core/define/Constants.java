@@ -41,6 +41,11 @@ public interface Constants {
 
 
     String[] NOTALLOWATT = new String [] {".js",".exe",".ssh",".php",".bat",".asp",".vbs"};
+
+    /**
+     * 配置的基本文件路径
+     */
+    String BASEPATH = "fang.baseFilePath";
     
     
     //mq destination

@@ -1,5 +1,4 @@
 var row = null;
-pageSize = 30;
 funcList.trClick = function() {
 	var trs = this.getParentByTag('table').getElementsByTagName('tr');
 	for ( var i = 0, len = trs.length; i < len; i++) trs[i].removeClass('click-tr');
@@ -14,7 +13,7 @@ funcList.editFunction = function() {
 		return;
 	}
 	fangjs.openDialog('sys/functionAdd.html?act=update&id=' + dataArray[row].id+'&parentName='
-			+ escape(selectParams.functionName),'编辑功能信息',"800px","560px",funcList.loadData);
+			+ escape(selectParams.functionName),'编辑功能信息',"800px","560px",funcList.loadAndRefresh());
 	
 };
 funcList.trDblClick = function() {
@@ -34,7 +33,7 @@ funcList.addFunction = function() {
 		return;
 	}
 	fangjs.openDialog('sys/functionAdd.html?lft=' + selectParams.rgt
-			+ '&parentName=' + escape(selectParams.functionName),'编辑功能信息',"800px","460px",funcList.loadData);
+			+ '&parentName=' + escape(selectParams.functionName),'编辑功能信息',"800px","460px",funcList.loadAndRefresh);
 	
 };
 
@@ -46,10 +45,10 @@ funcList.delFunction = function() {
 	
 	funcList.deleteSingleCallback = function() {
 		fangjs.execjava("sys/function/deleteFunctionByParam", dataArray[row], function(data) {
-			if (data&&data.result == '1') {
+			if (data&&data.code == '1') {
 				alert('删除功能成功!');
 				funcList.loadData();
-				funcList.refesh();
+				funcList.refreshData();
 			} else {
 				alert('删除功能失败!');
 			}
@@ -192,11 +191,16 @@ funcList.moveFunction = function(params){
 		if (data.result == 1) {
 			//alert("移动功能成功!");
 			funcList.loadData();
-			funcList.refesh();
+			funcList.refreshData();
 		} 
 	});
 };
-funcList.refesh = function(){
+funcList.loadAndRefresh = function(){
+    funcList.loadData();
+    setTimeout(funcList.refreshData(),1000)
+    // funcList.refreshData();
+};
+funcList.refreshData = function(){
 	var params = {};
     params.act = "refesh";
     funcList.checkTree(params);

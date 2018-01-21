@@ -44,20 +44,10 @@ funcList.save = function () {
         return;
     }
     var params = {};
-    var inputs = $s('input'), input;
+    var inputs = $("input,textarea,select"), input;
     for (var i = 0, len = inputs.length; i < len; i++) {
         input = inputs[i];
         if (input.id) fangjs.setEntity(params, input.id, input.value.trim());
-    }
-    inputs = $s('textarea');
-    for (var i = 0, len = inputs.length; i < len; i++) {
-        input = inputs[i];
-        if (input.id) fangjs.setEntity(params, input.id, input.value.trim());
-    }
-    var selects = $s('select'), select;
-    for (var i = 0, len = selects.length; i < len; i++) {
-        select = selects[i];
-        if (select.id) fangjs.setEntity(params, select.id, select.value);
     }
 
     var url = $("#id").val() ? "update" : "insert";

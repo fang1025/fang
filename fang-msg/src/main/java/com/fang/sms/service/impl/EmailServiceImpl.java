@@ -1,6 +1,7 @@
 package com.fang.sms.service.impl;
 
 import com.fang.core.entity.EmailEntity;
+import com.fang.core.service.BaseService;
 import com.fang.sms.mongo.EmailDao;
 import com.fang.sms.service.IEmailService;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service("emailService")
-public class EmailServiceImpl implements IEmailService {
+public class EmailServiceImpl extends BaseService implements IEmailService {
 	
 	@Resource
 	private EmailDao emailDao;

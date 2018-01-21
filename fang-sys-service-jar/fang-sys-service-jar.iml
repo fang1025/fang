@@ -196,5 +196,12 @@
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-entitymanager:5.2.2.Final" level="project" />
     <orderEntry type="library" name="Maven: org.mongodb:mongo-java-driver:2.12.2" level="project" />
     <orderEntry type="library" name="Maven: org.mongodb.morphia:morphia:0.108" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.poi:poi:3.9" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.poi:poi-ooxml:3.9" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.poi:poi-ooxml-schemas:3.9" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.xmlbeans:xmlbeans:2.3.0" level="project" />
+    <orderEntry type="library" name="Maven: com.belerweb:pinyin4j:2.5.1" level="project" />
+    <orderEntry type="library" name="Maven: com.baidu.aip:java-sdk:4.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.json:json:20160810" level="project" />
   </component>
 </module>

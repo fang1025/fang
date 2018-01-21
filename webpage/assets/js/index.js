@@ -12,7 +12,7 @@ $(function(){
 	var loanMenu = function(){
 		var functionUL = $('.sidebar-menu');
 		var func = null, funcII = null, index = 0;
-		var functionList = fangjs.getSessionStorage("functionList");
+		var functionList = fangjs.getLocalStorage("functionList");
 		for(var i = 0; i < functionList.length; i++){
 			func = functionList[i];
 			if(func.type == 1){

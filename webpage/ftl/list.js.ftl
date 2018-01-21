@@ -11,6 +11,9 @@ funcList.onload = function() {
 };
 funcList.loadData = function(params){
 	params = params||{};
+    if(selectParams){
+        params = $.extend({}, selectParams, params);
+    }
 	if (!params.page) params.page = page;
     if (!params.pageSize) params.pageSize = pageSize;
     var keywords=jQuery("#keywords").val().trim();

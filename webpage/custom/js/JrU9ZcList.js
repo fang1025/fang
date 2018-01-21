@@ -43,7 +43,7 @@ funcList.onload = function() {
 
 	funcList.funcControl();
 	funcList.loadData();
-    
+    // $("[data-toggle=dropdown]").dropdown()
 };
 funcList.loadData = function(params){
 	params = params||{};
@@ -140,6 +140,88 @@ funcList.delData = function(params) {
     fangjs.confirm("确定要删除此数据吗？", doDel)
     lastClickRow= null;
 };
+
+funcList.downloadExcel = function(params){
+    params = params||{};
+    params.tableName = dataType.tableName;
+    params.code = dataType.code;
+    params.path = "attachment/"
+    params.pageSize = 10;
+    fangjs.execjava('custom/commData/downloadExcel', params, function(data){
+        console.log(data);
+        var files = data.files;
+        for(var i = 0; i < files.length; i++){
+            funcList.download_file(files[i],i);
+        }
+    });
+};
+
+funcList.uploadExcel = function(params){
+    params = params||{};
+    params.tableName = dataType.tableName;
+    params.code = dataType.code;
+
+    layer.open({
+        type: 1,
+        area: ['326px', '428px'],
+        shade: 0,
+        content: '<div  style="margin: 10px" ><div class="file-loading" style="border: none"><input id="file" name="file" type="file"></div></div>' //这里content是一个普通的String
+    });
+    // fangjs.execjava('custom/commData/downloadExcel', params, function(data){
+    //     console.log(data);
+    // });
+    $("#file").fileinput({
+        uploadUrl: "/" + COMPONENT_APP + "/upload/onlyUploadSingle",
+        maxFileCount: 1,
+        // showBrowse:false,//显示选择按钮
+        // showCaption:false,//显示文件名称（在底部）
+        showRemove:false,//显示移除按钮
+        // showUpload:false,//显示上传按钮
+        showCancel:false,//显示取消按钮
+        browseOnZoneClick: true,//
+        autoReplace:true,//重新选择，替换当前文件
+        // previewClass:"hidden",
+        uploadExtraData:{"path":"attachment/"},
+        allowedFileExtensions:['xls','xlsx'],
+        showClose:false,
+        // fileActionSettings:{showZoom:false},
+        layoutTemplates:{"actionDelete":"","actionUpload":"","actionZoom":""},
+        language: 'zh'
+    }).on("fileuploaded", function (event, data, previewId, index) {
+        console.log(data);
+        var result = data.response;
+        if(result && result.code == 1){
+            var layer_i = layer.open({
+                type: 1,
+                closeBtn: 0, //不显示关闭按钮
+                anim: 2,
+                shade: 0.3,
+                content: '<div style="padding:20px;">文件上传成功！<br>正在解析数据......</div>',
+                title: false
+            });
+            var params = {};
+            params.tableName = dataType.tableName;
+            params.code = dataType.code;
+            params.filename = 'attachment/' + result.fileName
+            fangjs.execjava('custom/commData/readExcel', params, function (d) {
+                funcList.loadData();
+                layer.closeAll();
+            },false);
+        }else{
+            layer.msg("上传失败，请重试一次！")
+            $(".kv-file-remove").click();
+            // $(".file-drop-zone-title").html("上传失败，请重试一次！");
+        }
+
+    });
+    $('#file').on('fileerror', function(event, data, msg) {
+
+        console.log(data);
+        alert(data + msg);
+
+    });
+}
+
 
 var lastkeywords;
 /**

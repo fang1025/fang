@@ -29,7 +29,7 @@ funcList.showData = function(data) {
     fangjs.cleanData('dataTypeList', 0);
     
     if(!data) return;
-    var cols = [ "code", "name", "tableName","createTime"];
+    var cols = [ "code", "name", "tableName","excelName","createTime"];
         
     dataTypeList = data.rows;
     var dataCount = data.total;
@@ -45,7 +45,14 @@ funcList.showData = function(data) {
     var callback = {
     	createTime : function(td,tr,row){
     		td.innerHTML =  new Date(this.createTime).format('yyyy-MM-dd');
-    	}
+    	},
+        excelName : function(td,tr,row){
+    	    var str = this.excelName?
+        '<a href="' + filewebsite + 'templet/' + this.excelName  + '" target="_blank">' + this.name + '.' + this.suffix + '</a>'
+        :
+        '';
+            td.innerHTML =  str;
+        }
     };
     fangjs.dataView('dataTypeList', cols, dataTypeList, dataCount, start,null,callback);
 

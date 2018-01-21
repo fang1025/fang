@@ -288,7 +288,9 @@ background-position: -460px -120px;
     width: 100%;
 }
 
-
+/**
+form 表单样式
+ */
 .form-group label{
     margin-bottom: -5px;
 }
@@ -296,5 +298,23 @@ background-position: -460px -120px;
     border-top: none;
     border-left: none;
     border-right: none;
-    padding-top: 0px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background-color: white;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: white;
+    -webkit-appearance: none;
+}
+
+.form-file .btn{
+    /* border-top: none; */
+    border-left: none;
+    border-right: none;
+    border-top-color: white;
+    background: white;
+    color: #333;
+    border-bottom-color: #d2d6de;
+    border-radius: 0px;
 }

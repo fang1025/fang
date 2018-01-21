@@ -2,9 +2,14 @@
 var ROOT_PATH = '/';
 var AJAX_ROOT = '/fang/';
 var APP_ID = 'fang';
-var CUSTOM_APP = 'custom',CACHE_APP='fang';
+var CUSTOM_APP = 'custom',CACHE_APP='fang',COMPONENT_APP='fang';
 var ctx = getRootPath();
 var port = "";
+
+//已启用的查询条件
+var selectParams;
+
+var filewebsite = "http://file.fang.com/";
 
 //当前页码
 var page = 1;
@@ -436,7 +441,7 @@ var validation = function(ele){
 	}
 	if(verifyUrl&&fangjs.getParamFromURl("act")=='add'&& value){
 		var p = getParams(eve)||{};
-		p.id = value
+		p[eve.getAttribute('id').trim()] = value
 		fangjs.execjava(verifyUrl, p, function(data){
 			if(data.code != "1"){
 				var verifyNum = eve.getAttribute('verifyNum');
@@ -774,6 +779,23 @@ funcList.refresh = function(){
 		window.location.reload();
 	}
 };
+
+var download_file = {};
+funcList.download_file = function(url,i,host)
+{
+	i = i||0;
+    var download_file_iframe = document.createElement("iframe");
+    download_file_iframe.id = 'fang_download_file_' + i;
+    download_file['iframe_' + i] = download_file_iframe;
+    download_file['iframe_' + i].style.display = "none";
+    document.body.appendChild(download_file['iframe_' + i]);
+    host = host||filewebsite;
+    download_file['iframe_' + i].src = host + url;
+
+
+
+
+}
 
 
 /**
@@ -1639,7 +1661,7 @@ var moreTip = null;
 var moreHtml = "";
 //功能权限控制
 funcList.funcControl = function(){
-	var functionList = fangjs.getSessionStorage("functionList");
+	var functionList = fangjs.getLocalStorage("functionList");
 	if(!functionList) return;
 	var preFunc = null, func = null, rgt = null;
 	var moreMenu = null;

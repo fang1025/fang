@@ -13,7 +13,7 @@ public class PropertiesUtil {
 		if (is == null) {
 			try {
 				is = new InputStreamReader(
-						PropertiesUtil.class.getClassLoader().getResourceAsStream("common.properties"), "UTF-8");
+						PropertiesUtil.class.getClassLoader().getResourceAsStream("config/common.properties"), "UTF-8");
 				properties.load(is);
 			} catch (IOException e) {
 				System.out.println(e.getMessage());

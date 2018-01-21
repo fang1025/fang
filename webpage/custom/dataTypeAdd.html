@@ -10,12 +10,23 @@
   		<!-- Theme style -->
 		<link rel="stylesheet" href="../assets/css/AdminLTE.css">
 		<link rel="stylesheet" href="../assets/css/style.css">
+		<link rel="stylesheet" href="../assets/lib/bootstrap-fileinput/css/fileinput.css"/>
+
+		<script src="../assets/js/jquery-1.9.1.min.js"></script>
+		<script src="../assets/lib/bootstrap/js/bootstrap.js"></script>
+		<script src="../assets/lib/layer/layer.js"></script>
+		<script src="../assets/js/common.js"></script>
+		<script src="js/ctx.js"></script>
+		<script src="js/dataTypeAdd.js"></script>
+		<script src="../assets/lib/bootstrap-fileinput/js/fileinput.min.js"></script>
+		<script src="../assets/lib/bootstrap-fileinput/js/locales/zh.js"></script>
 	</head>
 
 	<body>
 	
 		<div class="box margin-bottom-none">
 			<input type="hidden" id="id" class="m-text" >
+			<input type="hidden" id="startCell" value="0" class="m-text" >
 			
 			<div class="box-body">
 				<div class="form-group col-sm-6">
@@ -30,6 +41,31 @@
 					<label>表名</label>
 					<input type="text" class="form-control" id="tableName" maxlen="68"verifyType="noNull" /> 
 				</div>
+				<div class="form-group col-sm-12 form-file">
+					<label>Excel模板</label>
+					<input class="form-control" id="file" name="file" type="file" />
+				</div>
+
+				<div class="form-group col-sm-6">
+					<label>表头开始行</label><span style="float: right;color: #c2c2c2">excel模板中表头开始的行</span>
+					<select class="form-control" id="startHeader">
+						<option value="0">第一行</option>
+						<option value="1">第二行</option>
+						<option value="2">第三行</option>
+						<option value="3">第四行</option>
+						<option value="4">第五行</option>
+					</select>
+				</div>
+				<div class="form-group col-sm-6">
+					<label>表头结束行</label><span style="float: right;color: #c2c2c2">excel模板中最后一行表头所在的行</span>
+					<select class="form-control" id="startRow">
+						<option value="1">第一行</option>
+						<option value="2">第二行</option>
+						<option value="3">第三行</option>
+						<option value="4">第四行</option>
+						<option value="5">第五行</option>
+					</select>
+				</div>
 			</div>
 
 			<div class="box-footer fixed-bottom">
@@ -39,12 +75,7 @@
 			</div>
 		</div>
 	
-		<script src="../assets/js/jquery-1.9.1.min.js"></script>
-		<script src="../assets/lib/bootstrap/js/bootstrap.js"></script>
-		<script src="../assets/lib/layer/layer.js"></script>
-		<script src="../assets/js/common.js"></script>
-		<script src="js/ctx.js"></script>
-		<script src="js/dataTypeAdd.js"></script>
+
 
 </body>
 </html>
