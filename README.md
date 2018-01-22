@@ -5,7 +5,7 @@
 Fang是Java语言的系统架构，使用Spring整合开源框架。
 
 ## docker
-docker pull fang1025/centos7-fang:3.0
+docker pull fang1025/centos7-fang
 
 ## 技术选型
 
