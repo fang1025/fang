@@ -11,7 +11,9 @@ var currentRowSelectedBoxCount = 0;//当前选中有哪些数据
 funcList.onload = function() {
 	funcList.funcControl();
 	funcList.loadData();
-    
+    fangjs.loadDict("gender", function(data) {
+
+    })
 };
 funcList.loadData = function(params){
 	params = params||{};
@@ -29,7 +31,7 @@ funcList.showData = function(data) {
     fangjs.cleanData('employeeList', 0);
     
     if(!data) return;
-    var cols = [ "name", "loginName", "email", "mobile", "identityCard", "sexType", "birthDate", "entryDate", "leaveDate", "workStatus","createTime"];
+    var cols = [  "employeeNo","name", "loginName", "email", "mobile", "identityCard", "sexType", "birthDate", "entryDate", "workStatus","createTime"];
         
     employeeList = data.rows;
     var dataCount = data.total;
@@ -44,8 +46,17 @@ funcList.showData = function(data) {
     };
     var callback = {
     	createTime : function(td,tr,row){
-    		td.innerHTML =  new Date(this.createTime).format('yyyy-MM-dd');
-    	}
+            td.innerHTML =  new Date(this.createTime).format('yyyy-MM-dd');
+        },
+        birthDate : function(td,tr,row){
+            td.innerHTML =  new Date(this.birthDate).format('yyyy-MM-dd');
+        },
+        entryDate : function(td,tr,row){
+            td.innerHTML =  new Date(this.entryDate).format('yyyy-MM-dd');
+        },
+        sexType : function(td,tr,row){
+            fangjs.addShowCallbackByDict("gender",this.sexType,td);
+        }
     };
     fangjs.dataView('employeeList', cols, employeeList, dataCount, start,null,callback);
 
@@ -109,7 +120,7 @@ funcList.delEmployee = function(params) {
 	
     var params = {'id' : employeeList[lastClickRow].id,'enable' : 1};
     var doDel = function(){
-		fangjs.execjava('sys/employee/updateEmployeeEnable', params, callback,false);
+		fangjs.execjava('sys/user/updateUserEnable', params, callback,false);
 	};
     fangjs.confirm("确定要删除此数据吗？", doDel)
     

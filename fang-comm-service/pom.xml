@@ -39,6 +39,22 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <artifactId>fang-cms-web</artifactId>
+            <groupId>com.fang</groupId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <artifactId>fang-sys-api</artifactId>
+            <groupId>com.fang</groupId>
+            <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
     <build>
         <finalName>fang-comm-service</finalName>

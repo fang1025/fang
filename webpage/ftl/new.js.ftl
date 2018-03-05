@@ -12,7 +12,7 @@ funcList.onload = function() {
 		if( 'read' == act){
 			$("select,input,textarea").attr("disabled",true);
 			$("input").removeAttr("onclick");
-			$(":button").remove();
+			$(".btn").remove();
 		}
 	}
 

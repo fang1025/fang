@@ -19,7 +19,7 @@ $(function(){
 				var li = $('<li>');
 				li.appendTo(functionUL);
 				li.addClass("treeview" + (i == 0? "active" : ""));
-				var str = ' <a href="#"><i class="' + (func.functionIcon?func.functionIcon:'fa fa-files-o') 
+				var str = ' <a href="#"><i class="' + (func.functionClass?func.functionClass:'fa fa-files-o')
 				+ '"></i><span>' + func.functionName 
 				+ '</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>';
 				li.append(str);
@@ -40,7 +40,7 @@ $(function(){
 				
 	            for(var j = 0; j < twoList.length; j++){
 	            	two = twoList[j];            	
-	             	var liII = $('<li><a href="javascript:;" click="addPage" params="id=' + two.id + ',title=' + two.functionName + ',url=' + two.functionUrl + '" ><i class="' +  (func.functionIcon?func.functionIcon:'fa fa-circle-o') + '"></i> ' + two.functionName + '</a></li>'); 
+	             	var liII = $('<li><a href="javascript:;" click="addPage" params="id=' + two.id + ',title=' + two.functionName + ',url=' + two.functionUrl + '" ><i class="' +  (two.functionClass?two.functionClass:'fa fa-circle-o') + '"></i> ' + two.functionName + '</a></li>');
 	             	liII.appendTo(ul);
 	            }
 	            

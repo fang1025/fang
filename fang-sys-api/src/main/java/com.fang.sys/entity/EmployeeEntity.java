@@ -22,8 +22,8 @@ public class EmployeeEntity extends UserEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = -1637396400766458712L;
-	
-	
+
+
 	@Comment("工号")
 	@Column(length = 15,nullable=false)
 	@AttributeInfo(formType = "input")
@@ -91,7 +91,35 @@ public class EmployeeEntity extends UserEntity {
 		this.birthDate = birthDate;
 	}
 
+	public String getEmployeeNo() {
+		return employeeNo;
+	}
 
-	
+	public void setEmployeeNo(String employeeNo) {
+		this.employeeNo = employeeNo;
+	}
 
+	public Date getEntryDate() {
+		return entryDate;
+	}
+
+	public void setEntryDate(Date entryDate) {
+		this.entryDate = entryDate;
+	}
+
+	public Date getLeaveDate() {
+		return leaveDate;
+	}
+
+	public void setLeaveDate(Date leaveDate) {
+		this.leaveDate = leaveDate;
+	}
+
+	public Integer getWorkStatus() {
+		return workStatus;
+	}
+
+	public void setWorkStatus(Integer workStatus) {
+		this.workStatus = workStatus;
+	}
 }

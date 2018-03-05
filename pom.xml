@@ -8,8 +8,8 @@
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <modules>
-        <module>fang-sys-api</module>
         <module>fang-core</module>
+        <module>fang-sys-api</module>
         <module>fang-sys-service</module>
         <module>fang-sys-web</module>
         <module>fang-msg</module>
@@ -17,6 +17,9 @@
         <module>fang-comm-api</module>
         <module>fang-sys-service-jar</module>
         <module>fang-custom-web</module>
+        <module>fang-cms-web</module>
+        <module>fang-base-service</module>
+        <module>fang-pro-api</module>
     </modules>
     <name>fang</name>
     <url>http://maven.apache.org</url>

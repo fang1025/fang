@@ -2098,6 +2098,14 @@ fangjs.initDict = function(dictMap){
 	}
 };
 
+//根据字典type，增加showdata方法的callback属性
+fangjs.addShowCallbackByDict = function(dictCode,key,td){
+    fangjs.loadDict(dictCode,function(dictMap){
+        var dict = dictMap[dictCode];
+        td.innerHTML =  dict[key];
+    })
+};
+
 /**
  * 清除LocalStorage里面的字典数据
  * @param dictCode

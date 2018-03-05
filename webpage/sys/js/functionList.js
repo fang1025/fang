@@ -99,7 +99,7 @@ var dataArray;
 var showData = function(data) {
 	if (!data || !data.rows)
 		return;
-	var colArray = [ 'functionName', 'functionUrl', 'type','enable', 'lastUpdateTime',
+	var colArray = [ 'functionName', 'functionUrl', 'type',/*'enable',*/ 'lastUpdateTime',
 			'notes' ];
 	
 	dataArray = data.rows;

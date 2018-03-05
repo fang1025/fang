@@ -27,7 +27,7 @@
             loginName,
             email,
             mobile,
-            password,
+            <!--password,-->
             type,
             id,createBy,createById,createTime,lastUpdateBy,lastUpdateById,lastUpdateTime
         from  sys_user_tbl where  1=1  and enable <![CDATA[<>]]> '1'
@@ -51,11 +51,15 @@
 
     <update id="updateUser" parameterType="com.fang.sys.entity.UserEntity" >
         update sys_user_tbl set
-        name = #{name},
-        loginName = #{loginName},
+        <if test="name != null" >
+            name = #{name},
+        </if>
+        <if test="loginName != null">
+            loginName = #{loginName},
+        </if>
         email = #{email},
         mobile = #{mobile},
-        password = #{password},
+        <!--password = #{password},-->
         type = #{type},
         lastUpdateBy=#{lastUpdateBy},lastUpdateById=#{lastUpdateById},lastUpdateTime=now()
         where id = #{id}

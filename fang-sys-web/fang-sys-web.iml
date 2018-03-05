@@ -27,6 +27,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:3.8.1" level="project" />
     <orderEntry type="module" module-name="fang-core" />
+    <orderEntry type="module" module-name="fang-base-service" />
     <orderEntry type="module" module-name="fang-sys-api" />
     <orderEntry type="module" module-name="fang-sys-service-jar" />
     <orderEntry type="library" name="Maven: commons-net:commons-net:3.4" level="project" />

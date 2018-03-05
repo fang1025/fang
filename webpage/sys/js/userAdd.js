@@ -12,11 +12,13 @@ funcList.onload = function() {
 		currentData = fangjs.getSessionStorage("userInfo");
 		fangjs.showEntity(currentData, ['input', 'select', 'textarea']);
 		fangjs.deleteSessionStorage("userInfo");
+
+		$("#password").parent().remove();
 		
 		if( 'read' == act){
 			$("select,input,textarea").attr("disabled",true);
 			$("input").removeAttr("onclick");
-			$(":button").remove();
+			$(".btn").remove();
 		}
 	}
 

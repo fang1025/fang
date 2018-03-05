@@ -29,7 +29,7 @@ funcList.showData = function(data) {
     fangjs.cleanData('userList', 0);
     
     if(!data) return;
-    var cols = [ "name", "loginName", "email", "mobile", "password", "type","createTime"];
+    var cols = [ "name", "loginName", "email", "mobile", "type","createTime"];
         
     userList = data.rows;
     var dataCount = data.total;
@@ -45,7 +45,10 @@ funcList.showData = function(data) {
     var callback = {
     	createTime : function(td,tr,row){
     		td.innerHTML =  new Date(this.createTime).format('yyyy-MM-dd');
-    	}
+    	},
+        type : function(td,tr,row){
+            td.innerHTML =  this.type == '0'?'系统用户':(this.type=='1'?'员工':'客户');
+        }
     };
     fangjs.dataView('userList', cols, userList, dataCount, start,null,callback);
 
@@ -134,6 +137,6 @@ funcList.assignRole = function(){
 	if(!lastClickRow){
         fangjs.alert('请选择需要分配角色的用户！');
         return;
-    } 
-	funcList.openDialog("sys/assignRole.html?uid=" + userList[lastClickRow].id ,'分配角色',"650px","550px");
+    }
+    fangjs.openDialog("sys/assignRole.html?uid=" + userList[lastClickRow].id ,'分配角色',"650px","550px");
 };

@@ -5,6 +5,7 @@
 **/
 package com.fang.sys.service.impl;
 
+import com.fang.base.service.ICodeCreateService;
 import com.fang.core.service.BaseService;
 import com.fang.core.util.SessionUtil;
 import com.fang.sys.dao.EmployeeMapper;
@@ -32,6 +33,9 @@ public class EmployeeServiceImpl extends BaseService implements IEmployeeService
 	
 	@Resource
     private IUserService userService;
+
+	@Resource
+	private ICodeCreateService codeCreateService;
 	
 	@Override
     public PageInfo<EmployeeEntity> findEmployeeByPage(ModelMap param) {
@@ -55,18 +59,24 @@ public class EmployeeServiceImpl extends BaseService implements IEmployeeService
     	employee.setLastUpdateBy(user.getName());
     	employee.setEnable(0); 
     	employee.setType(1);
+    	employee.setEmployeeNo(codeCreateService.getSequenceDay("Employee"));
     	userService.addUser(employee);
 		mapper.insertEmployee(employee); 
     }
     
     @Override
     public void updateEmployee(EmployeeEntity employee) {
+		UserEntity user = (UserEntity) SessionUtil.getCurrentUser();
+		employee.setLastUpdateById(user.getId());
+		employee.setLastUpdateBy(user.getName());
+		employee.setType(1);
+		userService.updateUser(employee);
 		mapper.updateEmployee(employee);
     }
-    
+
     @Override
     public void updateEmployeeEnable(ModelMap param) {
-		mapper.updateEmployeeEnable(param);
+		userService.updateUserEnable(param);
     }
 
     @Override

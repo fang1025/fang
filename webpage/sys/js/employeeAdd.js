@@ -7,18 +7,27 @@ var currentData = null;
 
 funcList.onload = function() {
 
-	var act = fangjs.getParamFromURl("act");
-	if(act && 'add' != act){
-		currentData = fangjs.getSessionStorage("employeeInfo");
-		fangjs.showEntity(currentData, ['input', 'select', 'textarea']);
-		fangjs.deleteSessionStorage("employeeInfo");
-		
-		if( 'read' == act){
-			$("select,input,textarea").attr("disabled",true);
-			$("input").removeAttr("onclick");
-			$(":button").remove();
-		}
-	}
+	//加载字典数据
+    fangjs.loadDict("gender", function(data) {
+        fangjs.initDict(data);
+
+        //加载数据
+        var act = fangjs.getParamFromURl("act");
+        if (act && 'add' != act) {
+            currentData = fangjs.getSessionStorage("employeeInfo");
+            fangjs.showEntity(currentData, ['input', 'select', 'textarea']);
+            fangjs.deleteSessionStorage("employeeInfo");
+
+            $("#password").parent().remove();
+
+            if ('read' == act) {
+                $("select,input,textarea").attr("disabled", true);
+                $("input").removeAttr("onclick");
+                $(".btn").remove();
+            }
+        }
+    })
+
 
 };
 
@@ -47,7 +56,7 @@ funcList.saveEmployee = function() {
         if(select.id) fangjs.setEntity(params, select.id, select.value);
     }
     
-	var url = $("#").val()?"updateEmployee":"addEmployee";
+	var url = $("#id").val()?"updateEmployee":"addEmployee";
     var callback = function(data) {
 		if(data.code == '1'){
 			fangjs.alert("操作成功！");
